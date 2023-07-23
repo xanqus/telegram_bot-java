@@ -2,6 +2,13 @@ plugins {
     id 'java'
 }
 
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -10,10 +17,19 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.telegram:telegrambots:5.0.1'
-    implementation 'org.slf4j:slf4j-simple:1.7.32'
+    implementation 'org.telegram:telegrambots:6.1.0'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+}
+
+configurations {
+    all {
+        exclude group: "org.slf4j", module: "slf4j-log4j12"
+        exclude group: "org.apache.logging.log4j", module: "log4j-to-slf4j"
+        exclude group: "log4j", module: "log4j"
+    }
 }
 
 test {
